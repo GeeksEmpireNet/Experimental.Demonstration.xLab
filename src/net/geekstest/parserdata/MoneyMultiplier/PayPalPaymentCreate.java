@@ -19,16 +19,17 @@ public class PayPalPaymentCreate {
 			//-d '{"payer_id": "RRCYJUTFJGZTA"}'
 			
 			JSONParser jsonParser = new JSONParser();
-			String PayerID = "UZ3EJS4VDFVPC";
+			String PayerID = "84CE4GE6USJHW";
 			JSONObject jsonArray = (JSONObject) jsonParser.parse("{\"payer_id\": \"" + PayerID + "\"}");
+			System.out.println(jsonArray);
 			
-			String paymentId = "PAYID-LWIYRFA5G633575FM046562J";
+			String paymentId = "PAYID-LWI4JNQ2G907621RL552372E";
 			String url = "https://api.sandbox.paypal.com/v1/payments/payment/" + paymentId + "/execute";
 			URL urlObject = new URL(url);
 			HttpsURLConnection httpsURLConnection = (HttpsURLConnection) urlObject.openConnection();
 			httpsURLConnection.setRequestMethod("POST");
 			httpsURLConnection.setRequestProperty("accept", "application/json");
-			httpsURLConnection.setRequestProperty("authorization", "Bearer A21AAG74SUMvCKhsjFu_2KTrTG1YAXVX1Xakl5gw7jurwqZz64YyJaKRKN5mKBMLKIhIOzPW5sZXE_RSCCRGyEhuLB668fRdg");
+			httpsURLConnection.setRequestProperty("authorization", "Bearer A21AAHho7usq0Cv9CKrYjOfBM1aKYt8-KX8DtkcSmkeHar2kp93PXU6_QyWDhlzbXhzKPYG2HIorlqqcpmBzXHSYpq46_MGqA");
 			httpsURLConnection.setRequestProperty("content-type", "application/json");
 			
 			// Send request
