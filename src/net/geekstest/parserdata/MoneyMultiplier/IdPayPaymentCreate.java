@@ -18,11 +18,6 @@ public class IdPayPaymentCreate {
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader("E:\\Xine\\ProjectCode\\Android\\MoneyMultiplier\\IdPayPAPI\\data-farsi.json"));
 			System.out.println(jsonObject.toString());
 			
-			//curl -X POST https://api.sandbox.paypal.com/v1/payments/payouts 
-			//-H "content-type: application/json" 
-			//-H "Authorization: Bearer A21AAF2JdzIhPLzOEAe19J9C-gwiUclS457Zi5-3TWZrw91LYYpPtFUFAyb16stnXnbogU39xlGYZQg3hNp7B-ml0Aj0hcE5Q" 
-			//-d @E:\Xine\ProjectCode\Android\MoneyMultiplier\PayoutAPI\data.json
-			/*************/
 			//curl -X POST https://api.idpay.ir/v1.1/payment 
 			//-H "Content-Type: application/json" 
 			//-H "X-API-KEY: 0174ae8a-b71d-4e0d-9121-414f775d3592" 
