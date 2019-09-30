@@ -1,4 +1,4 @@
-package net.geekstest.parserdata.ServerConnection;
+package net.geekstest.parserdata.MoneyMultiplier;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
