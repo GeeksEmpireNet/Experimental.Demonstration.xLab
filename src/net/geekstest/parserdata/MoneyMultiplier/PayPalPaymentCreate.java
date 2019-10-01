@@ -1,41 +1,45 @@
 package net.geekstest.parserdata.MoneyMultiplier;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import net.geekstest.parserdata.JSON.JSONArray;
 import net.geekstest.parserdata.JSON.JSONObject;
 import net.geekstest.parserdata.JSON.JSONParser;
 
 public class PayPalPaymentCreate {
 	public static void main(String[] args) {
 		try {
-			//curl -v -X POST https://api.sandbox.paypal.com/v1/payments/payment/PAY-34629814WL663112AKEE3AWQ/execute 
-			//-H "Content-Type: application/json" 
-			//-H "Authorization: Bearer A21AAG74SUMvCKhsjFu_2KTrTG1YAXVX1Xakl5gw7jurwqZz64YyJaKRKN5mKBMLKIhIOzPW5sZXE_RSCCRGyEhuLB668fRdg" 
-			//-d '{"payer_id": "RRCYJUTFJGZTA"}'
-			
 			JSONParser jsonParser = new JSONParser();
-			String PayerID = "84CE4GE6USJHW";
-			JSONObject jsonArray = (JSONObject) jsonParser.parse("{\"payer_id\": \"" + PayerID + "\"}");
-			System.out.println(jsonArray);
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader("E:\\Xine\\ProjectCode\\Android\\MoneyMultiplier\\PayPalPaymentsAPI\\payment.json"));
 			
-			String paymentId = "PAYID-LWI4JNQ2G907621RL552372E";
-			String url = "https://api.sandbox.paypal.com/v1/payments/payment/" + paymentId + "/execute";
+			//curl -v -X 
+			//POST 
+			//https://api.sandbox.paypal.com/v1/payments/payment 
+			//-H "Content-Type: application/json" 
+			//-H "Authorization: Bearer A21AAHYFSh7ruUtxVXB9e5mZ3FuAZxF7R2MDH5kjaScEmzK0TLuifZQdZw28uybplaL4svHS1kLcyzLkBaNYM2d8hIUuHq-0g" 
+			//-d @E:\Xine\ProjectCode\Android\MoneyMultiplier\PayPalPaymentsAPI\payment.json
+			
+			String accessToken = "A21AAHCyrb7uGxGV64IPmboPlzjg1rXJyA6Ft-_EgQaHEr5DBRSmAmSM1vYUAYY497IncntbKg_Fu_qdYBMTtUfGtCIO7MFfw";
+			
+			String url = "https://api.sandbox.paypal.com/v1/payments/payment";
 			URL urlObject = new URL(url);
 			HttpsURLConnection httpsURLConnection = (HttpsURLConnection) urlObject.openConnection();
 			httpsURLConnection.setRequestMethod("POST");
-			httpsURLConnection.setRequestProperty("accept", "application/json");
-			httpsURLConnection.setRequestProperty("authorization", "Bearer A21AAHho7usq0Cv9CKrYjOfBM1aKYt8-KX8DtkcSmkeHar2kp93PXU6_QyWDhlzbXhzKPYG2HIorlqqcpmBzXHSYpq46_MGqA");
+			httpsURLConnection.setRequestProperty("authorization", "Bearer " + accessToken);
 			httpsURLConnection.setRequestProperty("content-type", "application/json");
 			
 			// Send request
 			httpsURLConnection.setDoOutput(true);
 			DataOutputStream dataOutputStream = new DataOutputStream(httpsURLConnection.getOutputStream());
-			dataOutputStream.writeBytes(jsonArray.toString());
+			dataOutputStream.writeBytes(jsonObject.toString());
 			dataOutputStream.flush();
 			dataOutputStream.close();
 
@@ -48,10 +52,31 @@ public class PayPalPaymentCreate {
 			}
 			bufferReader.close();
 
+			JSONObject jsonObjectApprovalUrl = (JSONObject) jsonParser.parse(response.toString());
+			JSONArray urls = (JSONArray) jsonObjectApprovalUrl.get("links");
+			JSONObject approvalUrlData = (JSONObject) urls.get(1);//approval_url
+			String approvalLink = approvalUrlData.get("href").toString();
+			
 			// Print the response
 			System.out.println(response.toString());
+			System.out.println(approvalLink);
+			
+			openWebpage(URI.create(approvalLink));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static boolean openWebpage(URI uri) {
+	    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+	    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+	        try {
+	            desktop.browse(uri);
+	            return true;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return false;
 	}
 }

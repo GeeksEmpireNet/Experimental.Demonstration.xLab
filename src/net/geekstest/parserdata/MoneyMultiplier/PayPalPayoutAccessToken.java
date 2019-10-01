@@ -12,7 +12,8 @@ import javax.net.ssl.HttpsURLConnection;
 public class PayPalPayoutAccessToken {
 	public static void main(String[] args) {
 		try {
-			String BasicBase64format = Base64.getEncoder().encodeToString("AV_llcDDdpinvE_Mwe14n6SPW2nTF7-ujLOM6hd8jB508PcyaHfOO0J-bxipwWGFaFbPU4nnO2yRh6JA:EMhsGAX7CkLnvNpDkhidCsWsdd3wCa2gfTnqdWZ77nbKgNMaK_-HXp2za_Cqz0TW7vldcUop5cwI1lO-".getBytes()); 
+			String BasicBase64format = Base64.getEncoder()
+					.encodeToString("AV_llcDDdpinvE_Mwe14n6SPW2nTF7-ujLOM6hd8jB508PcyaHfOO0J-bxipwWGFaFbPU4nnO2yRh6JA:EMhsGAX7CkLnvNpDkhidCsWsdd3wCa2gfTnqdWZ77nbKgNMaK_-HXp2za_Cqz0TW7vldcUop5cwI1lO-".getBytes()); 
 			
 			//curl -v https://api.sandbox.paypal.com/v1/oauth2/token 
 			//-H "Accept: application/json" 
