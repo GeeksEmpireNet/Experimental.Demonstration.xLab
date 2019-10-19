@@ -1,10 +1,14 @@
 package net.geekstest.parserdata.MoneyMultiplier;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
+
+import net.geekstest.parserdata.JSON.JSONObject;
+import net.geekstest.parserdata.JSON.JSONParser;
 
 public class PayPalPaymentValidateInvoice {
 	public static void main(String[] args) {
@@ -32,6 +36,12 @@ public class PayPalPaymentValidateInvoice {
 			
 			// Print the response
 			System.out.println(response.toString());
+			
+			JSONParser jsonParser = new JSONParser();
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(response.toString());
+			
+			String isInvoiceValidated = jsonObject.get("state").toString();
+			System.out.println(isInvoiceValidated);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
