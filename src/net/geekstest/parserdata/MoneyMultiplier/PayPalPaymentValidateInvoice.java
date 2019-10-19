@@ -7,6 +7,7 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import net.geekstest.parserdata.JSON.JSONArray;
 import net.geekstest.parserdata.JSON.JSONObject;
 import net.geekstest.parserdata.JSON.JSONParser;
 
@@ -40,8 +41,10 @@ public class PayPalPaymentValidateInvoice {
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = (JSONObject) jsonParser.parse(response.toString());
 			
-			String isInvoiceValidated = jsonObject.get("state").toString();
-			System.out.println(isInvoiceValidated);
+			JSONArray invoiceInformation = (JSONArray) jsonObject.get("transactions");
+			JSONObject invoiceInformationArray = (JSONObject) invoiceInformation.get(0);
+			JSONObject invoiceInformationAmount = (JSONObject) invoiceInformationArray.get("amount");
+			System.out.println(invoiceInformationAmount.get("total"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
