@@ -18,7 +18,7 @@ public class PayPalPaymentCreate {
 	public static void main(String[] args) {
 		try {
 			JSONParser jsonParser = new JSONParser();
-			JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader("E:\\Xine\\ProjectCode\\Android\\MoneyMultiplier\\PayPalPaymentsAPI\\payment.json"));
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader("E:\\Xine\\ProjectCode\\Android\\MoneyMultiplier\\PayPalPaymentsAPI\\orderData.json"));
 			
 			//curl -v -X 
 			//POST 
@@ -27,7 +27,7 @@ public class PayPalPaymentCreate {
 			//-H "Authorization: Bearer A21AAHYFSh7ruUtxVXB9e5mZ3FuAZxF7R2MDH5kjaScEmzK0TLuifZQdZw28uybplaL4svHS1kLcyzLkBaNYM2d8hIUuHq-0g" 
 			//-d @E:\Xine\ProjectCode\Android\MoneyMultiplier\PayPalPaymentsAPI\payment.json
 			
-			String accessToken = "A21AAHCyrb7uGxGV64IPmboPlzjg1rXJyA6Ft-_EgQaHEr5DBRSmAmSM1vYUAYY497IncntbKg_Fu_qdYBMTtUfGtCIO7MFfw";
+			String accessToken = "A21AAFh8XjnpXyhxy_D2vjIeJr2Gi30aMxTIBH5B1oBt8JKqe4RIYm7e00fAOpsF6osBlu7TAWTg_7qL4Qno3eankj3f52tCg";
 			
 			String url = "https://api.sandbox.paypal.com/v1/payments/payment";
 			URL urlObject = new URL(url);

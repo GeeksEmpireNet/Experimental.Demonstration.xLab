@@ -9,7 +9,7 @@ import java.util.Base64;
 import javax.net.ssl.HttpsURLConnection;
 
 
-public class PayPalPayoutAccessToken {
+public class PayPalAccessToken {
 	public static void main(String[] args) {
 		try {
 			String BasicBase64format = Base64.getEncoder()
