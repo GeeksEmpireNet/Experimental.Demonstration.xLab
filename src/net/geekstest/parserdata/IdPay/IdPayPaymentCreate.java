@@ -1,4 +1,4 @@
-package net.geekstest.parserdata.MoneyMultiplier;
+package net.geekstest.parserdata.IdPay;
 
 import java.awt.Desktop;
 import java.io.BufferedReader;
@@ -7,35 +7,30 @@ import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
-
 import javax.net.ssl.HttpsURLConnection;
-
-import net.geekstest.parserdata.JSON.JSONArray;
 import net.geekstest.parserdata.JSON.JSONObject;
 import net.geekstest.parserdata.JSON.JSONParser;
 
-public class PayPalPaymentCreate {
+public class IdPayPaymentCreate {
 	public static void main(String[] args) {
 		try {
 			JSONParser jsonParser = new JSONParser();
-			JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader("E:\\Xine\\ProjectCode\\Android\\MoneyMultiplier\\PayPalPaymentsAPI\\orderData.json"));
+			JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader("E:\\Xine\\ProjectCode\\Android\\MoneyMultiplier\\IdPayPAPI\\data-farsi.json"));
+			System.out.println(jsonObject.toString());
 			
-			//curl -v -X 
-			//POST 
-			//https://api.sandbox.paypal.com/v1/payments/payment 
+			//curl -X POST https://api.idpay.ir/v1.1/payment 
 			//-H "Content-Type: application/json" 
-			//-H "Authorization: Bearer A21AAHYFSh7ruUtxVXB9e5mZ3FuAZxF7R2MDH5kjaScEmzK0TLuifZQdZw28uybplaL4svHS1kLcyzLkBaNYM2d8hIUuHq-0g" 
-			//-d @E:\Xine\ProjectCode\Android\MoneyMultiplier\PayPalPaymentsAPI\payment.json
-			
-			String accessToken = "A21AAEalwhFmhsQ2i5d5OuLkQmzoLyDE9onJT9CACsYM2C2XneZqaPhHLG-YyELI-isNSQQBdDXP8tvCMUE7xflbB0HPyJAKg";
-			
-			String url = "https://api.sandbox.paypal.com/v1/payments/payment";
+			//-H "X-API-KEY: 0174ae8a-b71d-4e0d-9121-414f775d3592" 
+			//-H "X-SANDBOX: 1" 
+			//-d @E:\Xine\ProjectCode\Android\MoneyMultiplier\IdPayPAPI\data-farsi.json
+			String url = "https://api.idpay.ir/v1.1/payment";
 			URL urlObject = new URL(url);
 			HttpsURLConnection httpsURLConnection = (HttpsURLConnection) urlObject.openConnection();
 			httpsURLConnection.setRequestMethod("POST");
-			httpsURLConnection.setRequestProperty("authorization", "Bearer " + accessToken);
-			httpsURLConnection.setRequestProperty("content-type", "application/json");
-			
+			httpsURLConnection.setRequestProperty("Content-Type","application/json");
+			httpsURLConnection.setRequestProperty("X-API-KEY", "0174ae8a-b71d-4e0d-9121-414f775d3592");
+			httpsURLConnection.setRequestProperty("X-SANDBOX", "1");
+	
 			// Send request
 			httpsURLConnection.setDoOutput(true);
 			DataOutputStream dataOutputStream = new DataOutputStream(httpsURLConnection.getOutputStream());
@@ -44,7 +39,7 @@ public class PayPalPaymentCreate {
 			dataOutputStream.close();
 
 			BufferedReader bufferReader = new BufferedReader(
-					new InputStreamReader(httpsURLConnection.getInputStream()));
+				new InputStreamReader(httpsURLConnection.getInputStream()));
 			String inputLine;
 			StringBuffer response = new StringBuffer();
 			while ((inputLine = bufferReader.readLine()) != null) {
@@ -52,16 +47,13 @@ public class PayPalPaymentCreate {
 			}
 			bufferReader.close();
 
-			JSONObject jsonObjectApprovalUrl = (JSONObject) jsonParser.parse(response.toString());
-			JSONArray urls = (JSONArray) jsonObjectApprovalUrl.get("links");
-			JSONObject approvalUrlData = (JSONObject) urls.get(1);//approval_url
-			String approvalLink = approvalUrlData.get("href").toString();
-			
 			// Print the response
-			System.out.println(response.toString());
-			System.out.println(approvalLink);
+			System.out.println(response);
 			
-			openWebpage(URI.create(approvalLink));
+			JSONObject responseJsonObject = (JSONObject) new JSONParser().parse(response.toString());
+			System.out.println("Link == " + responseJsonObject.get("link"));
+			
+			openWebpage(URI.create(responseJsonObject.get("link").toString()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -80,3 +72,5 @@ public class PayPalPaymentCreate {
 	    return false;
 	}
 }
+
+
