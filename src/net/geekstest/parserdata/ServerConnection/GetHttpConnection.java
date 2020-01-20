@@ -23,7 +23,6 @@ public class GetHttpConnection {
 
             System.out.println("Live Currency Exchange Rates");
 
-            
         } catch (ClientProtocolException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
