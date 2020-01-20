@@ -10,8 +10,8 @@ import java.net.URLEncoder;
 import javax.net.ssl.HttpsURLConnection;
 
 public class GetDatabase {
-	public static void main(String[] args) {
-		try {
+	public static void main(String[] args) {		
+		/*try {
 	        String data = "" + URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode("nameUserXXX", "UTF-8") 
 	        + "&" 
 	        + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode("passXXX", "UTF-8"); 
@@ -39,8 +39,8 @@ public class GetDatabase {
 			System.out.println(response.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-}
+		}*/
+	}
 }
 
 

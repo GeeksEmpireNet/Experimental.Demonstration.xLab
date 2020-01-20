@@ -3,6 +3,8 @@ package net.geekstest.parserdata;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import net.geekstest.parserdata.JSON.JSONArray;
 import net.geekstest.parserdata.JSON.JSONObject;
@@ -15,23 +17,28 @@ public class ParseJSON {
 
 		JSONParser jsonParser = new JSONParser();
 		try {
-			FileReader reader = new FileReader("C:\\Users\\Xtation\\Desktop\\heritage.json");
-			
-			long firstTime = System.currentTimeMillis();
-			System.out.println(">>> " + firstTime);
-			
-			JSONArray fullJsonArray = (JSONArray) jsonParser.parse(reader);
-			
-			long secondTime = System.currentTimeMillis();
-			System.out.println(">>> " + secondTime);
-			
-			System.out.println(">>> " + ((secondTime - firstTime)));
-			
-			
-			//JSONObject primeNumbers = (JSONObject) obj.get("name");
+			FileReader reader = new FileReader("C:\\Users\\Xtation\\Desktop\\RevolutDataSample.json");
+									
+			JSONObject fullJson = (JSONObject) jsonParser.parse(reader);
+			System.out.println(fullJson.size());
 
-			JSONObject arrayList = (JSONObject) fullJsonArray.get(0);
-			System.out.println("Heritage ::: " + arrayList.get("name"));
+			System.out.println(fullJson.get("base"));
+			System.out.println(fullJson.get("date"));
+			
+			
+			System.out.println(fullJson.get("rates"));
+			JSONObject jsonObject = (JSONObject) fullJson.get("rates"); 
+			System.out.println(jsonObject.get("USD"));
+			
+			jsonObject.keySet().forEach(keyStr -> {
+		        Object keyvalue = jsonObject.get(keyStr);
+		        System.out.println("key: "+ keyStr + " value: " + keyvalue);
+
+		        //for nested objects iteration if required
+		        //if (keyvalue instanceof JSONObject)
+		        //    printJsonObject((JSONObject)keyvalue);
+		    });
+			
 
 		} catch (NullPointerException e) {
 			e.printStackTrace();
